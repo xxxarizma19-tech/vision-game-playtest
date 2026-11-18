@@ -151,7 +151,7 @@ items.forEach(q=>{q.x-=spd*d;if(q.x<121&&q.x>60){if(!got.includes(q.id)){got.pus
 coins.forEach(q=>{q.x-=spd*d;if(q.x<121&&q.x>60){score+=25;burst(q.x,q.y,'#e5b94d',5);q.x=-40}});
 obs=obs.filter(q=>q.x>-80);items=items.filter(q=>q.x>-60);coins=coins.filter(q=>q.x>-40);draw();requestAnimationFrame(frame)}
 function reset(){t=0;score=0;hp=3;got=[];obs=[];items=[];coins=[];particles=[];spd=150;zone=0;finalStand=false;won=false;jy=0;jumpBuffer=0;jumpTime=0;jumping=false;duckUntil=-1;inv=0;hazardCount=0;hazAt=2.4;itemAt=1.55;coinAt=5;hud();draw()}
-function act(){if(mode===0){mode=1;last=performance.now();hazAt=2.4;go.textContent='ПРЫЖОК';requestAnimationFrame(frame)}else if(mode===1){if(!jumping){jumping=true;jumpTime=0;jumpBuffer=0}else jumpBuffer=1}else{reset();mode=0;go.textContent='НАЧАТЬ ЗАБЕГ'}go.textContent=mode===1?'ПРЫЖОК':mode===0?'НАЧАТЬ ЗАБЕГ':'СЫГРАТЬ ЕЩЁ'}
+function act(){if(mode===0){mode=1;last=performance.now();hazAt=2.4;go.textContent='ПРЫЖОК';requestAnimationFrame(frame)}else if(mode===1){if(!jumping){jumping=true;jumpTime=0;jumpBuffer=0}else jumpBuffer=1}else{mode=0;reset();go.textContent='НАЧАТЬ ЗАБЕГ'}go.textContent=mode===1?'ПРЫЖОК':mode===0?'НАЧАТЬ ЗАБЕГ':'СЫГРАТЬ ЕЩЁ'}
 duckBtn.addEventListener('pointerdown',e=>{e.preventDefault();if(mode===1)duckUntil=t+1.25});
 duckBtn.addEventListener('click',e=>{e.preventDefault();if(mode===1)duckUntil=t+1.25});
 go.addEventListener('click',act);c.addEventListener('pointerdown',e=>{e.preventDefault();if(mode===1)act()});draw();hud()
