@@ -142,7 +142,7 @@ function frame(ts){if(mode!==1)return;let d=Math.min(.05,(ts-last)/1000||0);last
 if(hazAt<=0){if(t>=86&&!finalStand){obs.push({x:W+20,w:48,h:48,k:7,hit:false});finalStand=true;hazAt=100}else{let k=hazardCount===0?0:Math.floor(Math.random()*(t<30?4:t<45?6:7)),sizes=[19,42,42,9,27,34,72],widths=[48,36,44,58,45,48,67];obs.push({x:W+20,w:widths[k],h:sizes[k],k,hit:false});hazardCount++;hazAt=Math.max(2.3,3.15-t*.006)*(0.9+Math.random()*.2)}}
 if(itemAt<=0&&got.length<8&&!items.some(q=>q.id===got.length)){let itemIndex=got.length;items.push({x:W+24,y:F-94-(itemIndex%2)*18,id:itemIndex});itemAt=7.2+Math.random()*1.2}
 if(coinAt<=0){coins.push({x:W+20,y:F-43});coinAt=6.2+Math.random()*2.2}
-obs.forEach(o=>{o.x-=spd*d;let crouching=t<duckUntil,feet=py+48;let hit=o.k===6?(!crouching&&jy===0&&o.x<119&&o.x+o.w>70&&inv<=0):(o.x<119&&o.x+o.w>70&&feet>F-o.h&&inv<=0);if(!o.hit&&hit){hp--;inv=1.45;o.hit=true;burst(94,F-31,'#ef5468',7);if(hp<=0)finish(false)}});if(mode!==1)return;
+obs.forEach(o=>{o.x-=spd*d;let crouching=t<duckUntil,feet=py+48;let hit=o.k===6?(!crouching&&jy===0&&o.x<119&&o.x+o.w>70&&inv<=0):(o.x<119&&o.x+o.w>70&&feet>F-o.h&&inv<=0);if(!o.hit&&hit){hp--;inv=1.45;o.hit=true;burst(94,F-31,'#ef5468',7);if(hp<=0){hud();finish(false)}}});if(mode!==1)return;
 items.forEach(q=>{q.x-=spd*d;if(q.x<121&&q.x>60){if(!got.includes(q.id)){got.push(q.id);score+=q.id===7?300:100;burst(q.x,q.y,q.id===7?'#e2a400':'#155eef',9)}q.x=-60}});
 coins.forEach(q=>{q.x-=spd*d;if(q.x<121&&q.x>60){score+=25;burst(q.x,q.y,'#e5b94d',5);q.x=-40}});
 obs=obs.filter(q=>q.x>-80);items=items.filter(q=>q.x>-60);coins=coins.filter(q=>q.x>-40);draw();requestAnimationFrame(frame)}
